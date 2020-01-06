@@ -247,6 +247,7 @@ if(storageAvailable('localStorage') && localStorage.getItem("store") !== null){
 
         if(item !== "stored" && item !== null){
             myLibrary[i] = JSON.parse(item)
+            myLibrary[i].toggleRead = Book.prototype.toggleRead
         }
     }
 }
