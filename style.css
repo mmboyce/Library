@@ -10,7 +10,7 @@ body {
     width: 95%
 }
 
-.book, #add-book, #form {
+.book, #add-book, #form, p {
     box-shadow: 0.5em 0.5em #0000009f;
 }
 
@@ -41,12 +41,12 @@ li {
     font-weight: bold;
 }
 
-#add-book:hover, .submit:hover, .read:hover, .remove:hover{
+#add-book:hover, .submit:hover, .read:hover, .remove:hover {
     cursor: pointer;
 }
 
 #add-book {
-    position:  fixed;
+    position: fixed;
     border: none;
     padding: 0.5em 1.2em 0.5em 1.2em;
     background: #82D7F0;
@@ -95,15 +95,38 @@ li {
     margin: 0.25em 0 0.25em 0;
 }
 
+p {
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    position: fixed;
+    bottom: 1em;
+    left: 43%;
+    color: white;
+    padding: 0.4em;
+    background: black;
+    box-shadow: 0.25em 0.25em #0000009f;
+}
+
+a, a:visited {
+    text-decoration: none;
+    color: #F8F1C1;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #0A73A4;
+}
+
 /* remove number increment arrows */
+
 /* Chrome, Safari, Edge, Opera */
-#pages-input::-webkit-outer-spin-button,
-#pages-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+
+#pages-input::-webkit-outer-spin-button, #pages-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 /* Firefox */
+
 #pages-input[type=number] {
-  -moz-appearance:textfield;
+    -moz-appearance: textfield;
 }
