@@ -2,40 +2,97 @@ const booksContainer = document.querySelector("#books")
 const addBookButton = document.querySelector("#add-book")
 const body = document.querySelector("body")
 
-function Book(title, author, pages, hasBeenRead){
+function Book(title, author, pages, hasBeenRead) {
     this.title = title
     this.author = author
     this.pages = pages
     this.hasBeenRead = hasBeenRead
 }
 
+Book.prototype.toggleRead = function () {
+    this.hasBeenRead = !this.hasBeenRead
+}
+
 const book1 = new Book("IT", "Stephen King", 1388, false)
 const book2 = new Book("Tuesdays with Morrie", "Mitch Albom", 192, true)
+const book3 = new Book("Akira Vol. 1", "Katsuhiro Otomo", 361, true)
+const book4 = new Book("Fire", "Bryan Konietzko, Michael Dimartino", 21, true)
 
-let myLibrary = [book1, book2]
+let myLibrary = [book1, book2, book3, book4]
 
-function addBookToLibrary(book){
+function isFunction(possiblyAFunction) {
+    return possiblyAFunction === "toggleRead"
+}
+
+function toggleAddBookButtonText() {
+    const newBook = "New Book"
+    const closeForm = "Close"
+
+    let buttonText = addBookButton.value
+
+    addBookButton.value = buttonText == closeForm ? newBook : closeForm
+}
+
+function addBookToLibrary(book) {
     myLibrary.push(book)
 }
 
-function createBookElement(book){
+function removeBookFromLibrary(book) {
+    for (let i = 0; i < myLibrary.length; i++) {
+        if (book === myLibrary[i]) {
+            myLibrary.splice(i, 1)
+            return
+        }
+    }
+}
+
+function createBookElement(book) {
     let list = document.createElement("ul")
 
-    for(attribute in book){
+    for (attribute in book) {
+
+        if (isFunction(attribute)) {
+            // we don't want to list our functions in our book cards
+            continue
+        }
+
         let item = document.createElement("li")
         item.className = attribute
         item.innerText = book[attribute]
 
-        if(attribute == "pages"){
+        if (attribute == "pages") {
             item.innerText += " pages"
         }
 
-        if(attribute == "hasBeenRead"){
+        if (attribute == "hasBeenRead") {
             item.innerText = `${book[attribute] ? 'Has been read.' : 'Has not been read yet.'}`
         }
 
         list.appendChild(item)
     }
+
+    let readButton = document.createElement("input")
+    readButton.type = "button"
+    readButton.value = "Toggle Read Status"
+    readButton.className = "read"
+
+    readButton.addEventListener("click", () => {
+        book.toggleRead()
+        renderLibrary()
+    })
+
+    let removeButton = document.createElement("input")
+    removeButton.type = "button"
+    removeButton.value = "Remove Book"
+    removeButton.className = "remove"
+
+    removeButton.addEventListener("click", () => {
+        removeBookFromLibrary(book)
+        renderLibrary()
+    })
+
+    list.appendChild(readButton)
+    list.appendChild(removeButton)
 
     list.className = "book"
 
@@ -68,6 +125,7 @@ function createBookForm() {
     const submitButton = document.createElement("input")
     submitButton.type = "button"
     submitButton.value = "Submit"
+    submitButton.className = "submit"
 
     submitButton.addEventListener("click", submit)
 
@@ -87,12 +145,22 @@ function createBookForm() {
 }
 
 function loadBookForm() {
+    const toRemove = document.querySelector("#form")
+
+    if (toRemove !== null) {
+        // closes the form 
+        body.removeChild(toRemove)
+        toggleAddBookButtonText()
+        return
+    }
+
     const form = createBookForm()
-    
+    toggleAddBookButtonText()
+
     body.appendChild(form)
 }
 
-function submit(){
+function submit() {
     const form = document.querySelector("#form")
 
     const title = document.querySelector("#title-input")
@@ -111,9 +179,10 @@ function submit(){
 
     renderLibrary()
     body.removeChild(form)
+    toggleAddBookButtonText()
 }
 
-function removeBooksFromWindow(){
+function removeBooksFromWindow() {
     let books = booksContainer.querySelectorAll(".book")
 
     books.forEach(book => {
@@ -121,7 +190,7 @@ function removeBooksFromWindow(){
     })
 }
 
-function renderLibrary(){
+function renderLibrary() {
     // we call this so that we can rerender all the books without readding
     // the ones already present
     removeBooksFromWindow()
@@ -134,6 +203,4 @@ function renderLibrary(){
 
 renderLibrary()
 
-addBookButton.addEventListener("click", () => {
-    loadBookForm()
-})
+addBookButton.addEventListener("click", loadBookForm)

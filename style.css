@@ -6,11 +6,11 @@ body {
     display: flex;
     margin-top: 2.5em;
     flex-wrap: wrap;
-    margin-left: 2%;
+    margin-left: 0.25vw;
     width: 95%
 }
 
-.book, #add-book {
+.book, #add-book, #form {
     box-shadow: 0.5em 0.5em #0000009f;
 }
 
@@ -21,7 +21,7 @@ body {
     margin-left: 2em;
 }
 
-li, #add-book {
+li, #add-book, #form, .remove, .read {
     font-family: 'Rubik', Arial, Helvetica, sans-serif;
 }
 
@@ -41,16 +41,69 @@ li {
     font-weight: bold;
 }
 
+#add-book:hover, .submit:hover, .read:hover, .remove:hover{
+    cursor: pointer
+}
+
 #add-book {
     position:  fixed;
     border: none;
     padding: 0.5em 1.2em 0.5em 1.2em;
     background: #82D7F0;
     top: 0.7em;
+    width: 7em;
 }
 
-#add-book:hover {
+#add-book:hover, {
     background: #ECF1EB;
     color: #F46622;
-    cursor: pointer;
+}
+
+.read {
+    border: none;
+    background: #F8F1C1;
+    margin-top: 0.6em;
+    padding: 0.3em 0.5em;
+    color: #0A73A4;
+}
+
+.read:hover {
+    background: #fff;
+}
+
+.remove {
+    border: none;
+    background: red;
+    color: white;
+    padding: 0.3em 1.3em;
+}
+
+.remove:hover {
+    background: white;
+    color: red;
+}
+
+#form {
+    background: #82D7F0;
+    width: max-content;
+    padding: 2em;
+    position: fixed;
+    top: 5em;
+}
+
+#title-input, #author-input, #pages-input {
+    margin: 0.25em 0 0.25em 0;
+}
+
+/* remove number increment arrows */
+/* Chrome, Safari, Edge, Opera */
+#pages-input::-webkit-outer-spin-button,
+#pages-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+#pages-input[type=number] {
+  -moz-appearance:textfield;
 }
