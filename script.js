@@ -1,5 +1,6 @@
 const booksContainer = document.querySelector("#books")
 const addBookButton = document.querySelector("#add-book")
+const body = document.querySelector("body")
 
 function Book(title, author, pages, hasBeenRead){
     this.title = title
@@ -41,6 +42,77 @@ function createBookElement(book){
     return list
 }
 
+function createBookForm() {
+    const form = document.createElement("div")
+
+    const titleInput = document.createElement("input")
+    titleInput.type = "text"
+    titleInput.name = "title"
+    titleInput.id = "title-input"
+
+    const authorInput = document.createElement("input")
+    authorInput.type = "text"
+    authorInput.name = "author"
+    authorInput.id = "author-input"
+
+    const pagesInput = document.createElement("input")
+    pagesInput.type = "number"
+    pagesInput.name = "pages"
+    pagesInput.id = "pages-input"
+
+    const hasBeenRead = document.createElement("input")
+    hasBeenRead.type = "checkbox"
+    hasBeenRead.name = "hasbeenread"
+    hasBeenRead.id = "hasbeenread-input"
+
+    const submitButton = document.createElement("input")
+    submitButton.type = "button"
+    submitButton.value = "Submit"
+
+    submitButton.addEventListener("click", submit)
+
+    form.innerHTML = "Title:<br>"
+    form.appendChild(titleInput)
+    form.innerHTML += "<br>Author:<br>"
+    form.appendChild(authorInput)
+    form.innerHTML += "<br>Number of Pages:<br>"
+    form.appendChild(pagesInput)
+    form.innerHTML += "<br>Have you Read It?<br>"
+    form.appendChild(hasBeenRead)
+    form.innerHTML += "<br>"
+    form.appendChild(submitButton)
+
+    form.id = "form"
+    return form
+}
+
+function loadBookForm() {
+    const form = createBookForm()
+    
+    body.appendChild(form)
+}
+
+function submit(){
+    const form = document.querySelector("#form")
+
+    const title = document.querySelector("#title-input")
+    const author = document.querySelector("#author-input")
+    const pages = document.querySelector("#pages-input")
+    const hasBeenRead = document.querySelector("#hasbeenread-input")
+
+    const titleValue = title.value
+    const authorValue = author.value
+    const pagesValue = pages.value
+    const hasBeenReadValue = hasBeenRead.checked
+
+    const book = new Book(titleValue, authorValue, pagesValue, hasBeenReadValue)
+
+    addBookToLibrary(book)
+
+    renderLibrary()
+    body.removeChild(form)
+}
+
 function removeBooksFromWindow(){
     let books = booksContainer.querySelectorAll(".book")
 
@@ -63,5 +135,5 @@ function renderLibrary(){
 renderLibrary()
 
 addBookButton.addEventListener("click", () => {
-    console.log("clicked")
+    loadBookForm()
 })
