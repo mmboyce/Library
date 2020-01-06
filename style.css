@@ -42,7 +42,7 @@ li {
 }
 
 #add-book:hover, .submit:hover, .read:hover, .remove:hover{
-    cursor: pointer
+    cursor: pointer;
 }
 
 #add-book {
@@ -54,7 +54,7 @@ li {
     width: 7em;
 }
 
-#add-book:hover, {
+#add-book:hover {
     background: #ECF1EB;
     color: #F46622;
 }
