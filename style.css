@@ -1,0 +1,56 @@
+body {
+    background: #F46622;
+}
+
+#books {
+    display: flex;
+    margin-top: 2.5em;
+    flex-wrap: wrap;
+    margin-left: 2%;
+    width: 95%
+}
+
+.book, #add-book {
+    box-shadow: 0.5em 0.5em #0000009f;
+}
+
+.book {
+    background: #0A73A4;
+    padding: 1em 0 1em 2em;
+    width: 20%;
+    margin-left: 2em;
+}
+
+li, #add-book {
+    font-family: 'Rubik', Arial, Helvetica, sans-serif;
+}
+
+li {
+    color: #F8F1C1;
+    font-family: 'Rubik', Arial, Helvetica, sans-serif;
+    font-size: 1em;
+    list-style: none;
+}
+
+.title {
+    font-family: 'Baskerville', serif;
+    font-size: 1.5em;
+}
+
+.author, .title {
+    font-weight: bold;
+}
+
+#add-book {
+    position:  fixed;
+    border: none;
+    padding: 0.5em 1.2em 0.5em 1.2em;
+    background: #82D7F0;
+    top: 0.7em;
+}
+
+#add-book:hover {
+    background: #ECF1EB;
+    color: #F46622;
+    cursor: pointer;
+}
