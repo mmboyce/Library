@@ -274,7 +274,7 @@ function storageAvailable(type) {
 
 function populateStorage(){
     localStorage.clear()
-    localStorage.setItem("store", "stored")
+    localStorage.setItem("stored", "store")
 
     for(let i = 0; i < myLibrary.length; i++){
         localStorage.setItem(i, JSON.stringify(myLibrary[i]))
@@ -287,7 +287,7 @@ if(storageAvailable('localStorage') && localStorage.getItem("store") !== null){
     for(let i = 0; i < localStorage.length; i++){
         let item = localStorage.getItem(i)
 
-        if(item !== "stored" && item !== null){
+        if(item !== "store" && item !== null){
             myLibrary[i] = JSON.parse(item)
             myLibrary[i].toggleRead = Book.prototype.toggleRead
         }
