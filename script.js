@@ -281,7 +281,7 @@ function populateStorage(){
     }
 }
 
-if(storageAvailable('localStorage') && localStorage.getItem("store") !== null){
+if(storageAvailable('localStorage') && localStorage.getItem("stored") !== null){
     myLibrary = []
 
     for(let i = 0; i < localStorage.length; i++){
