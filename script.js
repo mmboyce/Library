@@ -2,15 +2,49 @@ const booksContainer = document.querySelector("#books")
 const addBookButton = document.querySelector("#add-book")
 const body = document.querySelector("body")
 
-function Book(title, author, pages, hasBeenRead) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.hasBeenRead = hasBeenRead
-}
+class Book {
+    constructor(title, author, pages, hasBeenRead) {
+        this.title = title
+        this.author = author
+        this.pages = pages
+        this.hasBeenRead = hasBeenRead
+    }
 
-Book.prototype.toggleRead = function () {
-    this.hasBeenRead = !this.hasBeenRead
+    toggleRead() {
+        this.hasBeenRead = !this.hasBeenRead
+    }
+
+    get title() {
+        return this._title
+    }
+
+    get author() {
+        return this._author
+    }
+
+    get pages() {
+        return this._pages
+    }
+
+    get hasBeenRead() {
+        return this._hasBeenRead
+    }
+
+    set title(value) {
+        this._title = value
+    }
+
+    set author(value) {
+        this._author = value
+    }
+
+    set pages(value) {
+        this._pages = value
+    }
+
+    set hasBeenRead(value) {
+        this._hasBeenRead = value
+    }
 }
 
 const book1 = new Book("IT", "Stephen King", 1388, false)
@@ -21,7 +55,9 @@ const book4 = new Book("Fire", "Bryan Konietzko, Michael Dimartino", 21, true)
 let myLibrary = [book1, book2, book3, book4]
 
 function isFunction(possiblyAFunction) {
-    return possiblyAFunction === "toggleRead"
+    // since we switched to class syntax, the methods don't start with _
+    // but all the properties do :)
+    return !(possiblyAFunction.charAt(0) === "_")
 }
 
 function toggleAddBookButtonText() {
@@ -56,15 +92,21 @@ function createBookElement(book) {
             continue
         }
 
+        // shave off that pesky underscore from the front of our attribute
+        // this is only because i wanted to try making book into a class,
+        // it originally was just an object without class syntax
+        // sloppy i know.
+        let noUnderScoreAttribute = attribute.slice(1)
+
         let item = document.createElement("li")
-        item.className = attribute
+        item.className = noUnderScoreAttribute
         item.innerText = book[attribute]
 
-        if (attribute == "pages") {
+        if (noUnderScoreAttribute == "pages") {
             item.innerText += " pages"
         }
 
-        if (attribute == "hasBeenRead") {
+        if (noUnderScoreAttribute == "hasBeenRead") {
             item.innerText = `${book[attribute] ? 'Has been read.' : 'Has not been read yet.'}`
         }
 
