@@ -201,6 +201,10 @@ function loadBookForm() {
   body.appendChild(form);
 }
 
+function isInputEmpty(inputValue) {
+  return '' === inputValue.split(' ').join('');
+}
+
 function submit() {
   const form = document.querySelector('#form');
 
@@ -213,6 +217,32 @@ function submit() {
   const authorValue = author.value;
   const pagesValue = pages.value;
   const hasBeenReadValue = hasBeenRead.checked;
+
+  let thereAreEmptyValues = false;
+
+  // if title or author are empty
+  if (isInputEmpty(titleValue)) {
+    title.value = ''
+    title.placeholder = 'Enter a title to submit!';
+    thereAreEmptyValues = true;
+  }
+  if (isInputEmpty(authorValue)) {
+    author.value = ''
+    author.placeholder = 'Enter an author to submit!';
+    thereAreEmptyValues = true;
+  }
+
+  // if pages is empty or not a number
+  if (isInputEmpty(pagesValue) || isNaN(pagesValue)) {
+    pages.value = '';
+    pages.placeholder = 'Please enter a number to submit!';
+    thereAreEmptyValues = true;
+  }
+
+  if (thereAreEmptyValues) {
+    // do not allow submission
+    return
+  }
 
   const book = new Book(titleValue, authorValue, pagesValue, hasBeenReadValue);
 
