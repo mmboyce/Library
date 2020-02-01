@@ -272,22 +272,24 @@ function storageAvailable(type) {
 
 function populateStorage() {
   localStorage.clear();
-  localStorage.setItem('stored', 'store');
+  localStorage.setItem('stored', 'validation');
 
   for (let i = 0; i < myLibrary.length; i += 1) {
     localStorage.setItem(i, JSON.stringify(myLibrary[i]));
   }
 }
 
-if (storageAvailable('localStorage') && localStorage.getItem('stored') !== null) {
+if (storageAvailable('localStorage') && localStorage.getItem('stored') === 'validation') {
   myLibrary = [];
 
   for (let i = 0; i < localStorage.length; i += 1) {
     const item = localStorage.getItem(i);
 
     if (item !== 'store' && item !== null) {
-      myLibrary[i] = JSON.parse(item);
-      myLibrary[i].toggleRead = Book.prototype.toggleRead;
+      let currentBook = JSON.parse(item);
+      let bookObject = new Book(currentBook['_title'], currentBook['_author'], currentBook['_pages'], currentBook['_hasBeenRead'])
+
+      myLibrary[i] = bookObject;
     }
   }
 }
